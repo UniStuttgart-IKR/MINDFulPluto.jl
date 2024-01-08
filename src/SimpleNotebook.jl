@@ -1,15 +1,15 @@
 function plot_intent(;)
-    local intent_selection = interactable_args["selection_intent"]
-    local plot_selection = interactable_args["selection_plot"]
-    local wanted_pos = parse(Int64, interactable_args["selection_pos"])
+    intent_selection = interactable_args["selection_intent"]
+    plot_selection = interactable_args["selection_plot"]
+    wanted_pos = parse(Int64, interactable_args["selection_pos"])
 
 
     #get index of element in intent_list with name = intent_selection
     index = findfirst(x -> x["name"] == intent_selection, intent_list)
     intent = intent_list[index]
 
-    local ibn = intent["ibns"][intent["sn"]]
-    local idi = intent["id"]
+    ibn = intent["ibns"][intent["sn"]]
+    idi = intent["id"]
 
     #= ax = Axis(fig[pos_to_matrix(wanted_pos)[1], pos_to_matrix(wanted_pos)[2]])
     intentplot!(ax, ibn, idi)
@@ -36,12 +36,12 @@ function plot_intent(;)
 end
 
 function compile_intent(;)
-    local intent_selection = interactable_args["selection_intent"]
+    intent_selection = interactable_args["selection_intent"]
 
     #get index of element in intent_list with name = intent_selection
-    local index = findfirst(x -> x["name"] == intent_selection, intent_list)
-    local intent = intent_list[index]
-    local algorithm = "shortestavailpath"
+    index = findfirst(x -> x["name"] == intent_selection, intent_list)
+    intent = intent_list[index]
+    algorithm = "shortestavailpath"
 
     if algorithm == "shortestavailpath"
         algo = MINDFul.shortestavailpath!
@@ -52,7 +52,7 @@ function compile_intent(;)
         algo = longestavailpath!
     end
 
-    local ibn, idi = intent["ibns"][intent["sn"]], intent["id"]
+    ibn, idi = intent["ibns"][intent["sn"]], intent["id"]
     deploy!(ibn, idi, MINDFul.docompile, MINDFul.SimpleIBNModus(), algo; time=nexttime())
 end
 
@@ -65,55 +65,55 @@ function add_intent_to_framework(intent, ibn)
 end
 
 function install_intent(;)
-    local intent_selection = interactable_args["selection_intent"]
+    intent_selection = interactable_args["selection_intent"]
 
-    local index = findfirst(x -> x["name"] == intent_selection, intent_list)
-    local intent = intent_list[index]
-    local ibn, idi = intent["ibns"][intent["sn"]], intent["id"]
+    index = findfirst(x -> x["name"] == intent_selection, intent_list)
+    intent = intent_list[index]
+    ibn, idi = intent["ibns"][intent["sn"]], intent["id"]
     deploy!(ibn, idi, MINDFul.doinstall, MINDFul.SimpleIBNModus(), MINDFul.directinstall!; time=nexttime())
 
 end
 
 function uninstall_intent(;)
-    local intent_selection = interactable_args["selection_intent"]
+    intent_selection = interactable_args["selection_intent"]
 
-    local index = findfirst(x -> x["name"] == intent_selection, intent_list)
-    local intent = intent_list[index]
-    local ibn, idi = intent["ibns"][intent["sn"]], intent["id"]
+    index = findfirst(x -> x["name"] == intent_selection, intent_list)
+    intent = intent_list[index]
+    ibn, idi = intent["ibns"][intent["sn"]], intent["id"]
 
     deploy!(ibn, idi, MINDFul.douninstall, MINDFul.SimpleIBNModus(), MINDFul.directuninstall!; time=nexttime())
 
 end
 
 function uncompile_intent(;)
-    local intent_selection = interactable_args["selection_intent"]
+    intent_selection = interactable_args["selection_intent"]
 
-    local index = findfirst(x -> x["name"] == intent_selection, intent_list)
-    local intent = intent_list[index]
-    local ibn, idi = intent["ibns"][intent["sn"]], intent["id"]
+    index = findfirst(x -> x["name"] == intent_selection, intent_list)
+    intent = intent_list[index]
+    ibn, idi = intent["ibns"][intent["sn"]], intent["id"]
 
     deploy!(ibn, idi, MINDFul.douncompile, MINDFul.SimpleIBNModus(); time=nexttime())
 
 end
 
 function remove_intent(;)
-    local intent_selection = interactable_args["selection_intent"]
+    intent_selection = interactable_args["selection_intent"]
 
-    local index = findfirst(x -> x["name"] == intent_selection, intent_list)
-    local intent = intent_list[index]
-    local ibn, idi = intent["ibns"][intent["sn"]], intent["id"]
+    index = findfirst(x -> x["name"] == intent_selection, intent_list)
+    intent = intent_list[index]
+    ibn, idi = intent["ibns"][intent["sn"]], intent["id"]
 
     remintent!(ibn, idi)
 end
 
 function load_ibn(topology_path)
     # read in the NestedGraph
-    local globalnet = open(joinpath(topology_path)) do io
+    globalnet = open(joinpath(topology_path)) do io
         loadgraph(io, "main", GraphIO.GraphML.GraphMLFormat(), NestedGraphs.NestedGraphFormat())
     end
 
     # convert it to a NestedGraph compliant with the simulation specifications
-    local simgraph = MINDFul.simgraph(globalnet;
+    simgraph = MINDFul.simgraph(globalnet;
         distance_method=MINDFul.euclidean_dist,
         router_lcpool=defaultlinecards(),
         router_lccpool=defaultlinecardchassis(),
@@ -121,7 +121,7 @@ function load_ibn(topology_path)
         transponderset=defaulttransmissionmodules())
 
     # convert it to IBNs
-    local myibns = MINDFul.nestedGraph2IBNs!(simgraph)
+    myibns = MINDFul.nestedGraph2IBNs!(simgraph)
 
     return myibns
 end

@@ -210,6 +210,81 @@ function resize_cells()
     });
 
     
+    //show all cards 
+    document.querySelectorAll('.card').forEach((card, i) => {
+        card.style.display = 'block';
+    });
+
+    //hide last 2 cells 
+    var cells = document.querySelectorAll('.show_input ');
+    cells = Array.prototype.slice.call(cells, -2);
+    cells.forEach((cell, i) => {
+        cell.style.display = 'none';
+    });
+
+    document.querySelectorAll('.code_folded').forEach((card, i) => {
+            //if col in className of card 
+            if (card.className.includes('col')) {
+                card.style.display = 'none';
+            }
+    });
+
+
+    cells = document.querySelectorAll('.code_folded ');
+    cells = Array.prototype.slice.call(cells, -2);
+
+    cells.forEach((cell, i) => {
+        cell.querySelector('.cm-editor').style.background = 'transparent';
+
+        cell.style.display = 'inline-block';
+        cell.style.verticalAlign = 'top';
+        cell.style.width = '30vw';
+        cell.style.maxWidth = '30vw';
+        cell.style.height = '50vh';
+        cell.style.margin = '2.5%';
+        cell.style.textAlign = 'start';
+
+        cell.style.background = 'rgba(217, 147, 232, 0.1)';
+        cell.style.borderRadius = '16px';
+        cell.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.1)';
+
+        cell.style.padding = '20px 20px 20px 20px';
+
+        //find element pluto-trafficlight
+        cell.querySelector('pluto-trafficlight').style.display = 'none';
+
+        var log_container = cell.querySelector('pluto-logs-container');
+        if (log_container != null) {
+            log_container.style.display = 'transparent';
+        }
+
+        //remove pluto-log-icon
+        var log_icon = cell.querySelector('pluto-log-icon');
+        if (log_icon != null) {
+            log_icon.style.display = 'none';
+        }
+
+        //find class=Stdout and change style 
+        var stdout = cell.querySelector('pluto-log-dot')
+        if (stdout != null) {
+            stdout.style.background = 'transparent';
+            stdout.style.border = '2px solid #FFFFFF';
+        }
+        
+        var rich_output = cell.querySelector('pluto-output');
+        if (rich_output != null) {
+            rich_output.style.borderRadius = '16px';
+            rich_output.style.background = 'black';
+        }
+        
+
+    });
+
+    var p_nb = document.getElementsByTagName('pluto-notebook')[0];
+    p_nb.style.marginTop = '31vh';
+    p_nb.style.marginLeft = '20vw';
+    p_nb.style.marginRight = '-25vw';
+    p_nb.style.backgroundColor = 'transparent';
 
 
 
