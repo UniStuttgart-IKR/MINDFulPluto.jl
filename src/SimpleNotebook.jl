@@ -109,7 +109,7 @@ end
 function load_ibn(topology_path)
     # read in the NestedGraph
     globalnet = open(joinpath(topology_path)) do io
-        loadgraph(io, "main", GraphIO.GraphML.GraphMLFormat(), NestedGraphs.NestedGraphFormat())
+        loadgraph(io, "global-network", GraphIO.GraphML.GraphMLFormat(), NestedGraphs.NestedGraphFormat())
     end
 
     # convert it to a NestedGraph compliant with the simulation specifications

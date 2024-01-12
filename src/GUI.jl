@@ -1,6 +1,3 @@
-include("JSFunctions.jl")
-include("SimpleNotebook.jl")
-
 function init()
     global intent_list = []
     global interactable_args = Dict()
