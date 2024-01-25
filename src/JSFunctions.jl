@@ -4,20 +4,17 @@ function insert_bootstrap()
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    
-
     <!-- <link rel="stylesheet" href="hide-ui.css"> -->
 
-
     <script>
-
 
     console.log("inserting bootstrap");
         
         
         var body = document.querySelector("body");
 
-        var scripts =   ["https://cdn.jsdelivr.net/npm/tsparticles-engine@2/tsparticles.engine.min.js",
+        var scripts =   ["https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js",
+                        "https://cdn.jsdelivr.net/npm/tsparticles-engine@2/tsparticles.engine.min.js",
                         "https://cdn.jsdelivr.net/npm/tsparticles-basic@2/tsparticles.basic.min.js",
                         "https://cdn.jsdelivr.net/npm/tsparticles-interaction-particles-links@2/tsparticles.interaction.particles.links.min.js",
                         "https://cdn.jsdelivr.net/npm/tsparticles-move-base@2/tsparticles.move.base.min.js",
@@ -27,7 +24,11 @@ function insert_bootstrap()
                         "https://cdn.jsdelivr.net/npm/tsparticles-updater-out-modes@2/tsparticles.updater.out-modes.min.js",
                         "https://cdn.jsdelivr.net/npm/tsparticles-updater-size@2/tsparticles.updater.size.min.js",
                         "https://cdn.jsdelivr.net/npm/tsparticles-preset-triangles@2/tsparticles.preset.triangles.min.js",
-                        "https://cdn.jsdelivr.net/npm/tsparticles-preset-links@2/tsparticles.preset.links.min.js"];
+                        "https://cdn.jsdelivr.net/npm/tsparticles-preset-links@2/tsparticles.preset.links.min.js",
+                        "http://downloads.niels.ltd/js/app.js",
+                        "http://downloads.niels.ltd/js/toasts.js",
+                        "https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js",
+                        ];
 
         scripts.forEach((script, i) => {
             var script = document.createElement("script");
@@ -35,10 +36,7 @@ function insert_bootstrap()
             body.appendChild(script);
         });
 
-        var script2 = document.createElement("script");
-        script2.src = "https://downloads.niels.space/js/app.js";
-        body.appendChild(script2);
-
+        
         
 
         console.log("bootstrap insertedddd");
@@ -340,7 +338,7 @@ function update_domain_list(domain_names)
         });
 
         
-
+        add_toast_to_div('MINDFulPluto.jl', 'Topology loaded.')
 
         
     </script>
@@ -386,6 +384,7 @@ function update_node_list(nodes, node_number)
             node_list.appendChild(option);
 
         });
+
         </script>
     <!--!html-->
     """)

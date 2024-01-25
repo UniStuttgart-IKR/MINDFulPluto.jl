@@ -30,5 +30,14 @@ function get_html_button(class_name, label)
             </button>
         <!--!html-->
         """)
+end
 
+function get_html_button(class_name, label, onclick)
+    return @htl("""
+        <!--html-->
+            <button class="btn btn-outline-light btn-lg create-intent node $(class_name)" onclick="$(onclick)">
+                $(label)
+            </button>
+        <!--!html-->
+        """)
 end

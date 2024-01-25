@@ -55,6 +55,8 @@ function button_caller_wrapper(func, button_counter; kwargs...)
     try
         return button_wrapper[func][1](; kwargs...)
     catch ArgumentError
+        return send_toast("Error... Please check your input.")
+        
     end
 end
 

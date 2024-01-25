@@ -4,6 +4,11 @@ function get_dashboard_main_div(_n1_btn, _n1_sn, _n2_btn, _n2_sn, create_intent_
     html_div = @htl("""
  	<!--html-->
      <body>
+     <div class="position-fixed top-0 end-0 p-3" style="z-index: 11" id="toast_container">
+
+    </div>
+
+
      <div class="d-flex align-items-center justify-content-center">
      <div class=" d-flex main-card">
          <div class="left-wrapper">
@@ -447,6 +452,28 @@ function get_dashboard_main_div(_n1_btn, _n1_sn, _n2_btn, _n2_sn, create_intent_
         .create-intent:focus {
             background-color: rgba(255, 255, 255, 0);
         
+        }
+
+        .toast {
+            background: rgba(96, 50, 107, 0.6);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1vh;
+        }
+
+        .toast-header {
+            font-weight: bolder;
+            color: white;
+        }
+
+        .toast-body {
+            color: white;
+        }
+
+
+
+        .progress-bar {
+            background: rgba(96, 50, 107, 0.6);
         }
 
     </style>

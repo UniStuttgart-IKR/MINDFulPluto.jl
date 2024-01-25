@@ -54,6 +54,8 @@ function compile_intent(;)
 
     ibn, idi = intent["ibns"][intent["sn"]], intent["id"]
     deploy!(ibn, idi, MINDFul.docompile, MINDFul.SimpleIBNModus(), algo; time=nexttime())
+
+    return send_toast("Intent compiled.")
 end
 
 function create_intent(node_1, node_2, subnet_1, subnet_2)
@@ -72,6 +74,7 @@ function install_intent(;)
     ibn, idi = intent["ibns"][intent["sn"]], intent["id"]
     deploy!(ibn, idi, MINDFul.doinstall, MINDFul.SimpleIBNModus(), MINDFul.directinstall!; time=nexttime())
 
+    return send_toast("Intent installed.")
 end
 
 function uninstall_intent(;)
@@ -83,6 +86,7 @@ function uninstall_intent(;)
 
     deploy!(ibn, idi, MINDFul.douninstall, MINDFul.SimpleIBNModus(), MINDFul.directuninstall!; time=nexttime())
 
+    return send_toast("Intent uninstalled.")
 end
 
 function uncompile_intent(;)
@@ -94,6 +98,7 @@ function uncompile_intent(;)
 
     deploy!(ibn, idi, MINDFul.douncompile, MINDFul.SimpleIBNModus(); time=nexttime())
 
+    return send_toast("Intent uncompiled.")
 end
 
 function remove_intent(;)
@@ -104,6 +109,8 @@ function remove_intent(;)
     ibn, idi = intent["ibns"][intent["sn"]], intent["id"]
 
     remintent!(ibn, idi)
+
+    return send_toast("Intent removed.")
 end
 
 function load_ibn(topology_path)
