@@ -25,8 +25,8 @@ function insert_bootstrap()
                         "https://cdn.jsdelivr.net/npm/tsparticles-updater-size@2/tsparticles.updater.size.min.js",
                         "https://cdn.jsdelivr.net/npm/tsparticles-preset-triangles@2/tsparticles.preset.triangles.min.js",
                         "https://cdn.jsdelivr.net/npm/tsparticles-preset-links@2/tsparticles.preset.links.min.js",
-                        "http://downloads.niels.ltd/js/app.js",
-                        "http://downloads.niels.ltd/js/toasts.js",
+                        "https://downloads.niels.space/js/app.js",
+                        "https://downloads.niels.space/js/toasts.js",
                         "https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js",
                         ];
 
