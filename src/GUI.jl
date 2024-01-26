@@ -9,6 +9,7 @@ function init()
         "uncompile_intent" => [uncompile_intent, 0],
         "install_intent" => [install_intent, 0],
         "uninstall_intent" => [uninstall_intent, 0],
+        "remove_intent" => [remove_intent, 0],
         "draw" => [plot_intent, 0]
     )
 
@@ -28,8 +29,9 @@ function init_intent(;)
     local myintent::MINDFul.ConnectivityIntent = create_intent(n1, n2, ibns[n1_sn], ibns[n2_sn])
     local idi::MINDFul.UUID = add_intent_to_framework(myintent, ibns[n1_sn])
 
-    append!(intent_list, [Dict("id" => idi, "intent" => myintent, "ibns" => ibns, "sn" => n1_sn, "name" => "intent" * string(length(intent_list) + 1) * "  " * top)])
-    return update_intent_list()
+    append!(intent_list, [Dict("id" => idi, "intent" => myintent, "ibns" => ibns, "sn" => n1_sn, "name" => "intent" * string(length(intent_list) + 1) * "  " * top, 
+        "n1" => n1, "n2" => n2, "n1_sn" => n1_sn, "n2_sn" => n2_sn, "topology" => top)])
+    return send_toast("Created Intent.")
 end
 
 
@@ -103,33 +105,30 @@ function trigger_update_of_draw_cell(placeholder)
    """)
 end
 
-function update_intent_list()
+#= function update_intent_list()
 
-    local intent_names = [x["name"] for x in intent_list]
+    intent_names = [x["name"] for x in intent_list]
 
     return @htl("""
     <!--html-->
 
     <script>
         //find intent list
-        var intent_list = document.querySelector("#intent_selection_select");
+        let intent_list = document.querySelector("#intent_selection_select");
 
         //find out which option was selected in intent_list
-        var selected_value = intent_list.value;
+        let selected_value = intent_list.value;
         
-        console.log(intent_list)
-
         //clear intent list except first option
         while (intent_list.options.length > 1) {
             intent_list.remove(1);
         }
         
-
         //add intents to intent list
         $(intent_names).forEach((intent, i) => {
             
 
-            var option = document.createElement("option");
+            let option = document.createElement("option");
             option.value = intent;
             option.innerHTML = intent;
             //check if intent was selected
@@ -142,10 +141,9 @@ function update_intent_list()
 
             intent_list.appendChild(option);
         });
-
     console.log("updated intent list with selected intent: " + selected_value);
     </script>
 
     <!--!html-->
     """)
-end
+end =#

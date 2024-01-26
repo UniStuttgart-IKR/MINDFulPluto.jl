@@ -109,6 +109,7 @@ function remove_intent(;)
     ibn, idi = intent["ibns"][intent["sn"]], intent["id"]
 
     remintent!(ibn, idi)
+    deleteat!(intent_list, index)
 
     return send_toast("Intent removed.")
 end
@@ -140,6 +141,13 @@ end
 function get_nodes_of_subdomain(top, domain)
     ibn = load_ibn("data/" * top * ".graphml")
     return MINDFul.getmynodes(ibn[parse(Int64, domain)])
+end
+
+function get_intent_state(ibn, id)
+    #gets the current intent state
+    #split string at ::
+    return split(string(getintentnode(ibn, id).state), "::")[1]
+    
 end
 
 defaultlinecards() = [MINDFul.LineCardDummy(10, 100, 26.72), MINDFul.LineCardDummy(2, 400, 29.36), MINDFul.LineCardDummy(1, 1000, 31.99)]

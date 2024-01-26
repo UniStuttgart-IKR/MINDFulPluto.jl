@@ -39,7 +39,7 @@ function insert_bootstrap()
         
         
 
-        console.log("bootstrap insertedddd");
+        console.log("bootstrap inserted");
 
         //top level stylesheet 
         //var stylesheet = document.createElement("style");
@@ -389,4 +389,47 @@ function update_node_list(nodes, node_number)
     <!--!html-->
     """)
 
+end
+
+
+function update_intent_list_html()
+    intent_names = [x["name"] for x in intent_list]
+    intent_configs = [string(x["n1_sn"]) * "." * string(x["n1"]) * " -> " * string(x["n2_sn"]) * "." * string(x["n2"]) for x in intent_list]
+    intent_toplogies = [x["topology"] for x in intent_list]
+
+
+
+    return @htl("""
+    <!--html-->
+    <script>
+        let intent_names = $(intent_names);
+        let intent_configs = $(intent_configs);
+        let intent_toplogies = $(intent_toplogies);
+
+        console.log(intent_names);
+
+
+        let intent_table = document.querySelector(".table > tbody");
+
+        //clear all <tr> except first one
+        while (intent_table.childElementCount > 0) {
+            intent_table.removeChild(intent_table.lastChild);
+        }
+
+        //add new <tr> for each intent
+        intent_names.forEach((intent_name, index) => {
+            let new_row = document.createElement("tr");
+            new_row.innerHTML = `
+                <th scope="row">\${index + 1}</th>
+                <td>\${intent_name}</td>
+                <td>\${intent_toplogies[index]}</td>
+                <td>\${intent_configs[index]}</td>
+                <td>state</td>
+            `;
+            intent_table.appendChild(new_row);
+        });
+
+    </script>
+    <!--!html-->
+    """)
 end
