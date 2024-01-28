@@ -6,68 +6,6 @@ function insert_bootstrap()
 
     <!-- <link rel="stylesheet" href="hide-ui.css"> -->
 
-    <script>
-
-    console.log("inserting bootstrap");
-        
-        
-        var body = document.querySelector("body");
-
-        var scripts =   ["https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js",
-                        "https://cdn.jsdelivr.net/npm/tsparticles-engine@2/tsparticles.engine.min.js",
-                        "https://cdn.jsdelivr.net/npm/tsparticles-basic@2/tsparticles.basic.min.js",
-                        "https://cdn.jsdelivr.net/npm/tsparticles-interaction-particles-links@2/tsparticles.interaction.particles.links.min.js",
-                        "https://cdn.jsdelivr.net/npm/tsparticles-move-base@2/tsparticles.move.base.min.js",
-                        "https://cdn.jsdelivr.net/npm/tsparticles-shape-circle@2/tsparticles.shape.circle.min.js",
-                        "https://cdn.jsdelivr.net/npm/tsparticles-updater-color@2/tsparticles.updater.color.min.js",
-                        "https://cdn.jsdelivr.net/npm/tsparticles-updater-opacity@2/tsparticles.updater.opacity.min.js",
-                        "https://cdn.jsdelivr.net/npm/tsparticles-updater-out-modes@2/tsparticles.updater.out-modes.min.js",
-                        "https://cdn.jsdelivr.net/npm/tsparticles-updater-size@2/tsparticles.updater.size.min.js",
-                        "https://cdn.jsdelivr.net/npm/tsparticles-preset-triangles@2/tsparticles.preset.triangles.min.js",
-                        "https://cdn.jsdelivr.net/npm/tsparticles-preset-links@2/tsparticles.preset.links.min.js",
-                        "https://downloads.niels.space/js/app.js",
-                        "https://downloads.niels.space/js/toasts.js",
-                        "https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js",
-                        ];
-
-        scripts.forEach((script, i) => {
-            var script = document.createElement("script");
-            script.src = scripts[i];
-            body.appendChild(script);
-        });
-
-        
-        
-
-        console.log("bootstrap inserted");
-
-        //top level stylesheet 
-        //var stylesheet = document.createElement("style");
-        //stylesheet.innerHTML = ".Warn { display: none; }"
-        //body.appendChild(stylesheet);
-
-
-    //get viewport size 
-    var viewportWidth = window.innerWidth;
-    var viewportHeight = window.innerHeight;
-    console.log("viewportWidth: " + viewportWidth);
-    console.log("viewportHeight: " + viewportHeight);
-
-
-    
-    document.addEventListener("DOMContentLoaded", function(event) {
-        
-    });
-
-
-    
-
-
-
-    </script>
-    
-
-
     <!--!html-->
     """)
 end

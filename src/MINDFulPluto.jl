@@ -1,4 +1,4 @@
-module MINDFulPlutoGUI
+module MINDFulPluto
 
 using WGLMakie
 using HypertextLiteral
@@ -18,6 +18,6 @@ include("SimpleNotebook.jl")
 include("DashboardGUI.jl")
 include("DashboardElements.jl")
 include("Toasts.jl")
-
+include("JavaScriptLoader.jl")
 
 end # module MINDFulPlutoGUI
