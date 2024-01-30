@@ -11,6 +11,8 @@ using Graphs
 using MetaGraphs
 using MINDFulMakie
 using Unitful
+using PrecompileTools
+using Logging
 
 include("GUI.jl")
 include("JSFunctions.jl")
@@ -19,5 +21,6 @@ include("DashboardGUI.jl")
 include("DashboardElements.jl")
 include("Toasts.jl")
 include("JavaScriptLoader.jl")
+include("precompile.jl")
 
 end # module MINDFulPlutoGUI
