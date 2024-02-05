@@ -18,7 +18,8 @@ function plot_intent(;)
 
     set_theme!(theme_black())
 
-    fig = Figure(resolution=(1070,940))
+    dpr = viewport_settings["dpr"]
+    fig = Figure(resolution=(713*dpr,625*dpr))
     ax = Axis(fig[1,1])
 
     if plot_selection == "intentplot"

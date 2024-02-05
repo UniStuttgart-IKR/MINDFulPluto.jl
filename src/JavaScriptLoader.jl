@@ -6,7 +6,7 @@ function open_file(path)
 end
 
 function insert_scripts()
-	paths = ["data/tsparticlesconfig.js", "data/toasts.js"]
+	paths = ["data/tsparticlesconfig.js", "data/toasts.js", "data/scripts/GetViewportSize.js"]
 	urls = ["https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js",
 		"https://cdn.jsdelivr.net/npm/tsparticles-engine@2/tsparticles.engine.min.js",
 		"https://cdn.jsdelivr.net/npm/tsparticles-basic@2/tsparticles.basic.min.js",
