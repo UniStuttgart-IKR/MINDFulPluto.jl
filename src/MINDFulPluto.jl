@@ -21,6 +21,7 @@ include("DashboardGUI.jl")
 include("DashboardElements.jl")
 include("Toasts.jl")
 include("JavaScriptLoader.jl")
+include("command_system/HandleCommands.jl")
 include("precompile.jl")
 
 end # module MINDFulPlutoGUI

@@ -1,5 +1,3 @@
-using HypertextLiteral
-
 function get_html_select(class_name, label, options)
     return @htl("""
         <!--html-->

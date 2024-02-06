@@ -1,7 +1,7 @@
 name = "MINDFulPluto"
 uuid = "2169b6f5-785b-460d-ad6a-2192ac02d426"
 authors = ["Niels <hermsen.niels@gmail.com>"]
-version = "0.1.1"
+version = "0.1.2"
 
 [deps]
 GraphIO = "aa1b3936-2fda-51b9-ab35-c553d3a640a2"

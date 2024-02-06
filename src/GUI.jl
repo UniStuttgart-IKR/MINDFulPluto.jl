@@ -18,24 +18,23 @@ function init()
 		"height" => 0.0,
 		"dpr" => 0.0)
 
+	global draw_args = Dict(
+		"intent_index" => 0,
+		"plotting_type" => "intentplot",
+		"position" => 0)
+
 	fig[1:2, 1:2] = GridLayout()
 end
 
 
-function init_intent(;)
-	local n1::Int64 = parse(Int64, interactable_args["selection_n1"])
-	local n2::Int64 = parse(Int64, interactable_args["selection_n2"])
-	local n1_sn::Int64 = parse(Int64, interactable_args["selection_n1_sn"])
-	local n2_sn::Int64 = parse(Int64, interactable_args["selection_n2_sn"])
+function init_intent(domain_1, domain_2, node_1, node_2, topology;)
 
-	local top = interactable_args["topology"]
+	ibns = load_ibn("data/$(topology).graphml")
+	myintent = create_intent(node_1, node_2, ibns[domain_1], ibns[domain_2])
+	idi = add_intent_to_framework(myintent, ibns[domain_1])
 
-	local ibns = load_ibn("data/$(top).graphml")
-	local myintent::MINDFul.ConnectivityIntent = create_intent(n1, n2, ibns[n1_sn], ibns[n2_sn])
-	local idi::MINDFul.UUID = add_intent_to_framework(myintent, ibns[n1_sn])
-
-	append!(intent_list, [Dict("id" => idi, "intent" => myintent, "ibns" => ibns, "sn" => n1_sn, "name" => "intent" * string(length(intent_list) + 1) * "  " * top,
-		"n1" => n1, "n2" => n2, "n1_sn" => n1_sn, "n2_sn" => n2_sn, "topology" => top)])
+	append!(intent_list, [Dict("id" => idi, "intent" => myintent, "ibns" => ibns, "sn" => domain_1, "name" => "intent" * string(length(intent_list) + 1) * "  " * topology,
+		"n1" => node_1, "n2" => node_2, "n1_sn" => domain_1, "n2_sn" => domain_2, "topology" => topology)])
 	return send_toast("Created Intent.")
 end
 
@@ -67,7 +66,7 @@ function button_caller_wrapper(func, button_counter; kwargs...)
 	end
 end
 
-function update_domain_and_node_list(type, placeholder)
+function update_domain_and_node_list(type; placeholder=nothing)
 	if type == "domain"
 		top = interactable_args["topology"]
 		domain_names = 1:get_ibn_size(top)[1]
@@ -83,13 +82,10 @@ function update_domain_and_node_list(type, placeholder)
 	end
 end
 
-function trigger_update_of_draw_cell(placeholder)
-	local position = interactable_args["selection_pos"]
-	try
-		position = parse(Int64, position)
-	catch
-		return "didnt"
-	end
+function trigger_update_of_draw_cell(intent_index, plotting_type, position)
+	draw_args["intent_index"] = intent_index
+	draw_args["plotting_type"] = plotting_type
+	draw_args["position"] = position
 
 	return @htl("""
    <!--html-->
@@ -99,7 +95,7 @@ function trigger_update_of_draw_cell(placeholder)
 	   // Get current cell handle and ID
 	   let cell = currentScript.closest("pluto-cell")
 	   //let id = cell.getAttribute("id")
-	   let draw_cells = ["a2e91f7f-7df9-4daf-a0b7-cfadc83a601a", "36ded27e-079a-4bed-9d94-abd6314ddca8", "dcad27db-f258-4ac8-a17b-21397933a3a1"]
+	   let draw_cells = ["36ded27e-079a-4bed-9d94-abd6314ddca8", "dcad27db-f258-4ac8-a17b-21397933a3a1"]
 
 	   console.log("Updating cell: " + ($(position)));
 	   // Use the pluto internal function to re-run all selected cells

@@ -1,397 +1,204 @@
-function get_dashboard_main_div(_n1_btn, _n1_sn, _n2_btn, _n2_sn, create_intent_bind, plot_selection_bind, draw_button_bind, compile_button_bind,
-	uncompile_button_bind, install_button_bind, uninstall_button_bind, _intent_selection, _wanted_pos, _topology, remove_button_bind)
+function get_dashboard_main_div()
 
 	html_div = @htl("""
- 	<!--html-->
-	 <body>
-	 <div class="position-fixed top-0 end-0 p-3" style="z-index: 11" id="toast_container">
+  <!--html-->
+		<body>
+		<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11" id="toast_container">
 
-	</div>
-
-
-	 <div class="d-flex align-items-center justify-content-center">
-	 <div class=" d-flex main-card">
-		 <div class="left-wrapper">
-			 <div class="top-desc d-flex align-items-center">
-				 <span class="container-fluid title-span justify-content-center align-items-center input-group-text no-border">MINDFulPlutoGUI v0.1</span>
-			 </div>
-
-			 <div class="menu-bar">
-				 <div class="container">
-					 <div class="row menu-buttons">
-						 <button class="btn btn-outline-light btn-lg create-intent text-nowrap" onclick="
-
-						//show content > .row
-						document.querySelectorAll('.content > .row').forEach((card, i) => {
-							card.style.display = 'flex';
-						});
-
-						//hide content > .table-container
-						document.querySelectorAll('.content > .table-container').forEach((card, i) => {
-							card.style.display = 'none';
-						});
-
-						//hide last 2 cells 
-						var cells = document.querySelectorAll('.show_input ');
-						cells = Array.prototype.slice.call(cells, -2);
-						cells.forEach((cell, i) => {
-							cell.style.display = 'none';
-						});
-
-						document.querySelectorAll('.code_folded').forEach((card, i) => {
-								//if col in className of card 
-								if (card.className.includes('col')) {
-									card.style.display = 'none';
-								}
-						});
+		</div>
 
 
-						cells = document.querySelectorAll('.code_folded ');
-						cells = Array.prototype.slice.call(cells, -2);
-
-						cells.forEach((cell, i) => {
-							cell.querySelector('.cm-editor').style.background = 'transparent';
-
-							cell.style.display = 'inline-block';
-							cell.style.verticalAlign = 'top';
-							cell.style.width = '30vw';
-							cell.style.maxWidth = '30vw';
-							cell.style.height = '50vh';
-							cell.style.margin = '2.5%';
-							cell.style.textAlign = 'start';
-
-							cell.style.background = 'rgba(217, 147, 232, 0.1)';
-							cell.style.borderRadius = '16px';
-							cell.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.1)';
-
-							cell.style.padding = '20px 20px 20px 20px';
-
-							//find element pluto-trafficlight
-							cell.querySelector('pluto-trafficlight').style.display = 'none';
-
-							var log_container = cell.querySelector('pluto-logs-container');
-							if (log_container != null) {
-								log_container.style.display = 'transparent';
-							}
-
-							//remove pluto-log-icon
-							var log_icon = cell.querySelector('pluto-log-icon');
-							if (log_icon != null) {
-								log_icon.style.display = 'none';
-							}
-
-							//find class=Stdout and change style 
-							var stdout = cell.querySelector('pluto-log-dot')
-							if (stdout != null) {
-								stdout.style.background = 'transparent';
-								stdout.style.border = '2px solid #FFFFFF';
-							}
-							
-							var rich_output = cell.querySelector('pluto-output');
-							if (rich_output != null) {
-								rich_output.style.borderRadius = '16px';
-								rich_output.style.background = 'black';
-							}
-							
-
-						});
-
-						var p_nb = document.getElementsByTagName('pluto-notebook')[0];
-						p_nb.style.marginTop = '31vh';
-						p_nb.style.marginLeft = '20vw';
-						p_nb.style.marginRight = '-25vw';
-						p_nb.style.backgroundColor = 'transparent';
-
-						
-						 
-					  
-					 ">
-							 Visualisation
-						 </button>
-					 </div>
-					 <div class="row menu-buttons">
-						<button class="btn btn-outline-light btn-lg create-intent text-nowrap" onclick="
-								
-						//hide content > .row
-						document.querySelectorAll('.content > .row').forEach((card, i) => {
-							card.style.display = 'none';
-						});
-						
-						//hide plotting cells
-						Array.prototype.slice.call(document.querySelectorAll('.code_folded'), -3).forEach((card, i) => {
-							card.style.display = 'none';
-						});
-
-						//show content > .table-container
-						document.querySelectorAll('.content > .table-container').forEach((card, i) => {
-							card.style.display = 'flex';
-						});
-
-                        //execute cell to update intent list
-                        let cell = currentScript.closest('pluto-cell');
-                        cell._internal_pluto_actions.set_and_run_multiple(['e9acb26d-07de-45d4-8bcd-88616842565d']);
-						 
-						 ">
-							 Intent list
-						 </button>
+		<div class="d-flex align-items-center justify-content-center">
+			<div class=" d-flex main-card">
+				<div class="left-wrapper">
+					<div class="top-desc d-flex align-items-center">
+						<span class="container-fluid title-span justify-content-center align-items-center input-group-text no-border">
+							MINDFulPlutoGUI v0.1.1
+						</span>
 					</div>
-					<div class="row menu-buttons">
-						<button class="btn btn-outline-light btn-lg create-intent text-nowrap" onclick="
 
-							//hide content > div 
-							document.querySelectorAll('.content > div').forEach((card, i) => {
-								card.style.display = 'none';
-							});
+					<div class="menu-bar">
+						<div class="container">
+							<div class="row menu-buttons">
+								<button class="btn btn-outline-light btn-lg create-intent text-nowrap" onclick="changeViewDisplay(`visualisation`, true)">
+									Visualisation
+								</button>
+							</div>
 
-							Array.prototype.slice.call(document.querySelectorAll('.code_folded'), -3).forEach((card, i) => {
-								card.style.display = 'none';
-							});
+							<div class="row menu-buttons">
+								<button class="btn btn-outline-light btn-lg create-intent text-nowrap" onclick="changeViewDisplay(`intenttable`, true)">
+									Intent list
+								</button>
+							</div>
 
-							//get last 3 cells 
-							var cells = document.querySelectorAll('.show_input ');
-
-							//only last 3 cells 
-							cells = Array.prototype.slice.call(cells, -2);
-
-							//move cells to top of screen in a grid 
-							cells.forEach((cell, i) => {
-								cell.querySelector('.cm-editor').style.background = 'transparent';
-
-								cell.style.display = 'inline-block';
-								cell.style.verticalAlign = 'top';
-								cell.style.width = '30vw';
-								cell.style.margin = '2.5%';
-								cell.style.textAlign = 'start';
-
-								cell.style.background = 'rgba(217, 147, 232, 0.1)';
-								cell.style.borderRadius = '16px';
-								cell.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.1)';
-
-								cell.style.padding = '20px 20px 20px 20px';
-
-								//find element pluto-trafficlight
-								cell.querySelector('pluto-trafficlight').style.display = 'none';
-
-								var log_container = cell.querySelector('pluto-logs-container');
-								if (log_container != null) {
-									log_container.style.display = 'transparent';
-								}
-
-								//remove pluto-log-icon
-								var log_icon = cell.querySelector('pluto-log-icon');
-								if (log_icon != null) {
-									log_icon.style.display = 'none';
-								}
-
-								//find class=Stdout and change style 
-								var stdout = cell.querySelector('pluto-log-dot')
-								if (stdout != null) {
-									stdout.style.background = 'transparent';
-									stdout.style.border = '2px solid #FFFFFF';
-								}
-								
-								
-
-							});
-
-							//change pluto-notebook style 
-							var p_nb = document.getElementsByTagName('pluto-notebook')[0];
-							p_nb.style.marginTop = '1.5vh';
-							p_nb.style.marginLeft = '20vw';
-							p_nb.style.marginRight = '-25vw';
-							p_nb.style.backgroundColor = 'transparent';
-
+							<div class="row menu-buttons">
+								<button class="btn btn-outline-light btn-lg create-intent text-nowrap" onclick="changeViewDisplay(`devmode`, true)">
+									Developer Mode
+								</button>
+							</div>
 							
+							<div class="row menu-buttons settings">
+								<button class="btn btn-outline-light btn-lg create-intent text-nowrap">
+									Dashboard settings
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
 
+				<div class="container-fluid content">
+					<div class='container-fluid table-container' style='display:none;'>
+						<table class='table table-borderless align-middle'>
+							<thead>
+								<tr>
+									<th scope='col'>#</th>
+									<th scope='col'>Name</th>
+									<th scope='col'>Topology</th>
+									<th scope='col'>Config</th>
+									<th scope='col'>State</th>
+									<th scope='col'>Actions</th>
+								</tr>
+							</thead>
 
-							
-						 
-						">
-							 Developer Mode
-						</button>
-					 </div>
-					 <div class="row menu-buttons">
-						 <button class="btn btn-outline-light btn-lg create-intent text-nowrap">
-							 Alternative GUI?
-						 </button>
-					 </div>
-					 <div class="row menu-buttons settings">
-						 <button class="btn btn-outline-light btn-lg create-intent text-nowrap">
-							 Dashboard settings
-						 </button>
-					 </div>
-				 </div>
-			 </div>
+							<tbody>
+								<tr>
+									<th scope='row'>1</th>
+									<td>Intent 1</td>
+									<td>4nets</td>
+									<td>1.1 -> 2.1</td>
+									<td>installed</td>
+								</tr>
 
+								<tr>
+									<th scope='row'>2</th>
+									<td>Intent 2</td>
+									<td>4nets</td>
+									<td>3.1 -> 2.5</td>
+									<td>compiled</td>
+								</tr>
 
-		 </div>
+								<tr>
+									<th scope='row'>3</th>
+									<td>Intent 4</td>
+									<td>4nets</td>
+									<td>1.1 -> 3.6</td>
+									<td>uncompiled</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+								
+					<div class="row flex-nowrap">
+						<div class="col">
+							<div class="card">
+								<div class="card-header text-center">
+									Intent Creation
+								</div>
+								<div class="card-body">
+									<div class="row flex-nowrap">
+										<div class="col d-flex justify-content-center">
+											<select class="form-select btn btn-outline-light btn-lg domain domain_selection_select" id="domain_selection_1" aria-label="Domain 1" onchange="updateNodeList(1)">
+												<option selected>Domain 1</option>
+											</select>
+										</div>
 
-		 <div class="container-fluid content">
+										<div class="col d-flex justify-content-center">	
+											<select class="form-select btn btn-outline-light btn-lg domain node_selection_select_1" id="node_selection_1" aria-label="Node 1">
+												<option selected>Node 1</option>
+											</select>
+										</div>
+									</div>
+									<div class="row flex-nowrap">
+										<div class="col d-flex justify-content-center">
+											<select class="form-select btn btn-outline-light btn-lg domain domain_selection_select" id="domain_selection_2" aria-label="Domain 2" onchange="updateNodeList(2)">
+												<option selected>Domain 2</option>
+											</select>
+										</div>
 
-		 
-			<div class='container-fluid table-container' style='display:none;'>
-				<table class='table'>
-					<thead>
-					<tr>
-						<th scope='col'>#</th>
-						<th scope='col'>Name</th>
-						<th scope='col'>Topology</th>
-						<th scope='col'>Config</th>
-						<th scope='col'>State</th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr>
-						<th scope='row'>1</th>
-						<td>Intent 1</td>
-						<td>4nets</td>
-						<td>1.1 -> 2.1</td>
-						<td>installed</td>
-					</tr>
-					<tr>
-						<th scope='row'>2</th>
-						<td>Jacob</td>
-						<td>Thornton</td>
-						<td>@fat</td>
-					</tr>
-					<tr>
-						<th scope='row'>3</th>
-						<td>Larry</td>
-						<td>the Bird</td>
-						<td>@twitter</td>
-					</tr>
-					</tbody>
-				</table>
+										<div class="col d-flex justify-content-center">
+											<select class="form-select btn btn-outline-light btn-lg domain node_selection_select_2" id="node_selection_2" aria-label="Node 2">
+												<option selected>Node 2</option>
+											</select>
+										</div>
+									</div>
+									<div class="row flex-nowrap">
+										<div class="col d-flex justify-content-center">
+											<button class="btn btn-outline-light btn-lg create-intent node create_intent_button" onclick='createIntent()'>
+												Create Intent
+											</button>
+										</div>
+
+										<div class="col d-flex justify-content-center">
+											<select class="form-select btn btn-outline-light btn-lg domain topology_select" id="topology_select" aria-label="Topology" onchange="updateDomainList()">
+												<option selected>Topology</option>
+												<option>4nets</option>
+												<option>nobel-germany</option>
+												<option>nobel-germany-france-topzoo</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col">
+							<div class="card">
+								<div class="card-header text-center">
+									Drawing
+								</div>
+								<div class="card-body">
+									<div class="row flex-nowrap">
+										<div class="col d-flex justify-content-center">
+											<select class="form-select btn btn-outline-light btn-lg domain intent_selection_select" id="intent_selection_select" aria-label="Available Intents">
+												<option selected>Available Intents</option>
+											</select>
+										</div>
+
+										<div class="col d-flex justify-content-center">
+											<button class="btn btn-outline-light btn-lg create-intent node draw_button" onclick='drawIntent()'>
+												Draw
+											</button>
+										</div>
+									</div>
+									<div class="row flex-nowrap">
+										<div class="col d-flex justify-content-center">
+											<select class="form-select btn btn-outline-light btn-lg domain plot_selection_select" id="plot_selection_select" aria-label="Plotting Type">
+												<option selected>Plotting Type</option>
+												<option>intentplot</option>
+												<option>ibnplot</option>
+											</select>
+										</div>
+
+										<div class="col d-flex justify-content-center">
+											<button class="btn btn-outline-light btn-lg create-intent node">
+												Remove
+											</button>
+										</div>
+									</div>
+									<div class="row flex-nowrap">
+										<div class="col d-flex justify-content-center">
+											<select class="form-select btn btn-outline-light btn-lg domain wanted_pos_select" id="wanted_pos_select" aria-label="Position">
+												<option selected>Position</option>
+												<option>1</option>
+												<option>2</option>
+											</select>
+										</div>
+
+										<div class="col d-flex justify-content-center">
+											<button class="btn btn-outline-light btn-lg create-intent node">
+												Placeholder
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-						
-			 <div class="row flex-nowrap">
-				 <div class="col">
+		</div>
+	</body>
 
-					 <div class="card">
-						 <div class="card-header text-center">
-							 Intent Creation
-						 </div>
-						 <div class="card-body">
-
-							 <div class="row flex-nowrap">
-								 <div class="col d-flex justify-content-center">
-									$((_n1_sn))
-								 </div>
-								 <div class="col d-flex justify-content-center">
-									$((_n1_btn))
-								 </div>
-							 </div>
-							 <div class="row flex-nowrap">
-								 <div class="col d-flex justify-content-center">
-									$((_n2_sn))
-								 </div>
-								 <div class="col d-flex justify-content-center">
-									$((_n2_btn))
-								 </div>
-							 </div>
-							 <div class="row flex-nowrap">
-								 <div class="col d-flex justify-content-center">
-									$((create_intent_bind))
-								 </div>
-								 <div class="col d-flex justify-content-center">
-									$((_topology))
-								 </div>
-							 </div>
-
-						 </div>
-					 </div>
-
-				 </div>
-				 <div class="col">
-
-					 <div class="card">
-						 <div class="card-header text-center">
-							 Intent Editing
-						 </div>
-						 <div class="card-body">
-
-							 <div class="row flex-nowrap">
-								 <div class="col d-flex justify-content-center">
-									 <select class="form-select btn btn-outline-light btn-lg node" aria-label="Node 1">
-										 <option selected>Comp algo</option>
-										 <option value=1>1</option>
-										 <option value=2>2</option>
-										 <option value=3>3</option>
-									 </select>
-								 </div>
-								 <div class="col d-flex justify-content-center">
-									 $((remove_button_bind))
-								 </div>
-							 </div>
-							 <div class="row flex-nowrap">
-								 <div class="col d-flex justify-content-center">
-									$((compile_button_bind))
-								 </div>
-								 <div class="col d-flex justify-content-center">
-									$((uncompile_button_bind))
-								 </div>
-							 </div>
-							 <div class="row flex-nowrap">
-								 <div class="col d-flex justify-content-center">
-									$((install_button_bind))
-								 </div>
-								 <div class="col d-flex justify-content-center">
-									$((uninstall_button_bind))
-								 </div>
-							 </div>
-
-						 </div>
-					 </div>
-
-
-				 </div>
-				 <div class="col">
-					 <div class="card">
-						 <div class="card-header text-center">
-							 Drawing
-						 </div>
-						 <div class="card-body">
-
-							 <div class="row flex-nowrap">
-								 <div class="col d-flex justify-content-center">
-									$((_intent_selection))
-								 </div>
-								 <div class="col d-flex justify-content-center">
-									$((draw_button_bind))
-								 </div>
-							 </div>
-							 <div class="row flex-nowrap">
-								 <div class="col d-flex justify-content-center">
-									$((plot_selection_bind))
-								 </div>
-								 <div class="col d-flex justify-content-center">
-									 <button class="btn btn-outline-light btn-lg create-intent node">
-										 Remove
-									 </button>
-								 </div>
-							 </div>
-							 <div class="row flex-nowrap">
-								 <div class="col d-flex justify-content-center">
-									$((_wanted_pos))
-								 </div>
-								 <div class="col d-flex justify-content-center">
-									 <button class="btn btn-outline-light btn-lg create-intent node">
-										 Placeholder
-									 </button>
-								 </div>
-							 </div>
-
-						 </div>
-					 </div>
-				 </div>
-			 </div>
-
-		 </div>
-	 </div>
- </div>
- </body>
-
- 	<style>
+  <style>
 
 		body {
 			background: linear-gradient(40deg, hsla(237, 90%, 4%, 1) 0%, hsla(266, 85%, 20%, 1) 100%);
@@ -450,7 +257,7 @@ function get_dashboard_main_div(_n1_btn, _n1_sn, _n2_btn, _n2_sn, create_intent_
 		}
 		
 		.settings {
-			margin-top: 52vh;
+			margin-top: 57.5vh;
 		}
 		
 		.content {
@@ -546,8 +353,22 @@ function get_dashboard_main_div(_n1_btn, _n1_sn, _n2_btn, _n2_sn, create_intent_
 			color: white;
 		}
 
+		.action-buttons {
+			width: 20vw;
+		}
+
+		tr {
+			border-bottom: rgba(145, 132, 168, 0.46);
+			border-style: solid;
+		}
+
+
+		pluto-logs-container {
+			display: none;
+		}
+
 	</style>
- 	<!--!html-->
+  <!--!html-->
 	""")
 
 	return html_div

@@ -6,7 +6,7 @@ function open_file(path)
 end
 
 function insert_scripts()
-	paths = ["data/tsparticlesconfig.js", "data/toasts.js", "data/scripts/GetViewportSize.js"]
+	paths = ["data/tsparticlesconfig.js", "data/toasts.js"]
 	urls = ["https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js",
 		"https://cdn.jsdelivr.net/npm/tsparticles-engine@2/tsparticles.engine.min.js",
 		"https://cdn.jsdelivr.net/npm/tsparticles-basic@2/tsparticles.basic.min.js",
@@ -22,29 +22,36 @@ function insert_scripts()
 		"https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js",
 	]
 
+	#get all files in /scripts 
+	files = readdir("data/scripts")
+	for file in files
+		push!(paths, "data/scripts/" * file)
+	end
+
 	#insert scripts in paths
 	scripts = []
 	for path in paths
 		push!(scripts, open_file(path))
 	end
+	
 
 	return @htl("""
 	<!-- html -->
 	<script>
 	
 	const scripts = $(scripts)
-    const urls = $(urls)
+	const urls = $(urls)
 	const body = document.getElementsByTagName('body')[0]
 
-    //add url scripts to body 
-    for (let i = 0; i < urls.length; i++) {
-        //create script tag 
-        const script = document.createElement('script')
-        //add script url
-        script.src = urls[i]
-        //add script to body
-        body.appendChild(script)
-    }
+	//add url scripts to body 
+	for (let i = 0; i < urls.length; i++) {
+		//create script tag 
+		const script = document.createElement('script')
+		//add script url
+		script.src = urls[i]
+		//add script to body
+		body.appendChild(script)
+	}
 
 	//add scripts to body
 	for (let i = 0; i < scripts.length; i++) {
