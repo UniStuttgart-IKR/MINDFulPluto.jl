@@ -97,39 +97,45 @@ function get_dashboard_main_div()
 								<div class="card-body">
 									<div class="row flex-nowrap">
 										<div class="col d-flex justify-content-center">
-											<select class="form-select btn btn-outline-light btn-lg domain domain_selection_select" id="domain_selection_1" aria-label="Domain 1" onchange="updateNodeList(1)">
+											<select class="form-select btn btn-outline-light btn-lg domain domain_selection_select" id="domain_selection_1"
+													aria-label="Domain 1" onchange="updateNodeList(1); updateButtonAvailabilities();">
 												<option selected>Domain 1</option>
 											</select>
 										</div>
 
 										<div class="col d-flex justify-content-center">	
-											<select class="form-select btn btn-outline-light btn-lg domain node_selection_select_1" id="node_selection_1" aria-label="Node 1">
+											<select class="form-select btn btn-outline-light btn-lg domain node_selection_select_1" id="node_selection_1" aria-label="Node 1" 
+												onchange="updateButtonAvailabilities();">
 												<option selected>Node 1</option>
 											</select>
 										</div>
 									</div>
 									<div class="row flex-nowrap">
 										<div class="col d-flex justify-content-center">
-											<select class="form-select btn btn-outline-light btn-lg domain domain_selection_select" id="domain_selection_2" aria-label="Domain 2" onchange="updateNodeList(2)">
+											<select class="form-select btn btn-outline-light btn-lg domain domain_selection_select" id="domain_selection_2" aria-label="Domain 2" 
+												onchange="updateNodeList(2); updateButtonAvailabilities();">
 												<option selected>Domain 2</option>
 											</select>
 										</div>
 
 										<div class="col d-flex justify-content-center">
-											<select class="form-select btn btn-outline-light btn-lg domain node_selection_select_2" id="node_selection_2" aria-label="Node 2">
+											<select class="form-select btn btn-outline-light btn-lg domain node_selection_select_2" id="node_selection_2" aria-label="Node 2" 
+												onchange="updateButtonAvailabilities();">
 												<option selected>Node 2</option>
 											</select>
 										</div>
 									</div>
 									<div class="row flex-nowrap">
 										<div class="col d-flex justify-content-center">
-											<button class="btn btn-outline-light btn-lg create-intent node create_intent_button" onclick='createIntent()'>
+											<button class="btn btn-outline-light btn-lg create-intent node create_intent_button" id="create_intent" 
+												onclick='createIntent(); updateButtonAvailabilities();'>
 												Create Intent
 											</button>
 										</div>
 
 										<div class="col d-flex justify-content-center">
-											<select class="form-select btn btn-outline-light btn-lg domain topology_select" id="topology_select" aria-label="Topology" onchange="updateDomainList()">
+											<select class="form-select btn btn-outline-light btn-lg domain topology_select" id="topology_select" aria-label="Topology" 
+												onchange="updateDomainList(); updateButtonAvailabilities();">
 												<option selected>Topology</option>
 												<option>4nets</option>
 												<option>nobel-germany</option>
@@ -148,20 +154,22 @@ function get_dashboard_main_div()
 								<div class="card-body">
 									<div class="row flex-nowrap">
 										<div class="col d-flex justify-content-center">
-											<select class="form-select btn btn-outline-light btn-lg domain intent_selection_select" id="intent_selection_select" aria-label="Available Intents">
+											<select class="form-select btn btn-outline-light btn-lg domain intent_selection_select" id="intent_selection_select" aria-label="Available Intents" 
+												onchange="updateButtonAvailabilities();">
 												<option selected>Available Intents</option>
 											</select>
 										</div>
 
 										<div class="col d-flex justify-content-center">
-											<button class="btn btn-outline-light btn-lg create-intent node draw_button" onclick='drawIntent()'>
-												Draw
-											</button>
+											<select class="form-select btn btn-outline-light btn-lg domain" id="domain_drawing_select" aria-label="Domain" onchange="updateButtonAvailabilities();">
+												<option selected>Domain</option>
+											</select>
 										</div>
 									</div>
 									<div class="row flex-nowrap">
 										<div class="col d-flex justify-content-center">
-											<select class="form-select btn btn-outline-light btn-lg domain plot_selection_select" id="plot_selection_select" aria-label="Plotting Type">
+											<select class="form-select btn btn-outline-light btn-lg domain plot_selection_select" id="plot_selection_select"
+												aria-label="Plotting Type" onchange="updateDomainListDrawing(); updateButtonAvailabilities();">
 												<option selected>Plotting Type</option>
 												<option>intentplot</option>
 												<option>ibnplot</option>
@@ -169,14 +177,15 @@ function get_dashboard_main_div()
 										</div>
 
 										<div class="col d-flex justify-content-center">
-											<button class="btn btn-outline-light btn-lg create-intent node">
-												Remove
+											<button class="btn btn-outline-light btn-lg create-intent node draw_button" id="draw_intent" onclick='drawIntent(); updateButtonAvailabilities();'>
+												Draw
 											</button>
 										</div>
 									</div>
 									<div class="row flex-nowrap">
 										<div class="col d-flex justify-content-center">
-											<select class="form-select btn btn-outline-light btn-lg domain wanted_pos_select" id="wanted_pos_select" aria-label="Position">
+											<select class="form-select btn btn-outline-light btn-lg domain wanted_pos_select" id="wanted_pos_select" aria-label="Position" 
+												onchange="updateButtonAvailabilities();">
 												<option selected>Position</option>
 												<option>1</option>
 												<option>2</option>
@@ -184,8 +193,8 @@ function get_dashboard_main_div()
 										</div>
 
 										<div class="col d-flex justify-content-center">
-											<button class="btn btn-outline-light btn-lg create-intent node">
-												Placeholder
+											<button class="btn btn-outline-light btn-lg create-intent node" id="remove_intent">
+												Remove
 											</button>
 										</div>
 									</div>

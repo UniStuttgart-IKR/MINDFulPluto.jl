@@ -21,7 +21,8 @@ function init()
 	global draw_args = Dict(
 		"intent_index" => 0,
 		"plotting_type" => "intentplot",
-		"position" => 0)
+		"position" => 0,
+		"domain" => 0)
 
 	fig[1:2, 1:2] = GridLayout()
 end
@@ -82,10 +83,11 @@ function update_domain_and_node_list(type; placeholder=nothing)
 	end
 end
 
-function trigger_update_of_draw_cell(intent_index, plotting_type, position)
+function trigger_update_of_draw_cell(intent_index, plotting_type, position, domain)
 	draw_args["intent_index"] = intent_index
 	draw_args["plotting_type"] = plotting_type
 	draw_args["position"] = position
+	draw_args["domain"] = domain
 
 	return @htl("""
    <!--html-->

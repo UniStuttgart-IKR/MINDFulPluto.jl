@@ -1,27 +1,32 @@
 function plot_intent()
-    if length(intent_list) == 0
-        return nothing
-    end
+	if length(intent_list) == 0
+		return nothing
+	end
 
 	intent_index = draw_args["intent_index"]
 	plotting_type = draw_args["plotting_type"]
 	position = draw_args["position"]
+	domain = draw_args["domain"]
 
 	intent = intent_list[intent_index]
 
-	ibn = intent["ibns"][intent["sn"]]
+	ibn = intent["ibns"]
 	idi = intent["id"]
 
 	set_theme!(theme_black())
 
 	dpr = viewport_settings["dpr"]
-	fig = Figure(resolution = (round(713 * dpr, digits = 0), round(625*dpr, digits = 0)))
+	fig = Figure(resolution = (round(713 * dpr, digits = 0), round(625 * dpr, digits = 0)))
 	ax = Axis(fig[1, 1])
 
 	if plotting_type == "intentplot"
-		fig_graphs[position] = intentplot!(ax, ibn, idi)
+		fig_graphs[position] = intentplot!(ax, ibn[domain], idi)
 	elseif plotting_type == "ibnplot"
-		fig_graphs[position] = ibnplot!(ax, ibn, intentidx = [idi])
+		if domain == 0
+			fig_graphs[position] = ibnplot!(ax, ibn, intentidx = [idi])
+		else
+			fig_graphs[position] = ibnplot!(ax, ibn[domain], intentidx = [idi])
+		end
 	end
 
 	return fig
@@ -129,6 +134,24 @@ function load_ibn(topology_path)
 	myibns = MINDFul.nestedGraph2IBNs!(simgraph)
 
 	return myibns
+end
+
+function update_domain_list_drawing(intent_index, plotting_type)
+	if length(intent_list) == 0
+		return nothing
+	end
+
+	if plotting_type == "ibnplot"
+		domains = ["All", intent_list[intent_index]["sn"]]
+	elseif plotting_type == "intentplot"
+		domains = [intent_list[intent_index]["sn"]]
+	end
+
+	return @htl("""
+		<script>
+		updateDomainDrawingList($(domains))
+		</script>
+		""")
 end
 
 function get_ibn_size(topology)

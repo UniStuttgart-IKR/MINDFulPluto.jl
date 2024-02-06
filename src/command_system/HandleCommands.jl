@@ -35,9 +35,16 @@ function handle_command(command)
 			return send_toast("Command: $command executed.")
 
 		elseif action in keys(draw_wrapper)
-            action, intent_index, plotting_type, position = split(command, " ") #draw <intent_index> <plotting_type> <position>
+            action, intent_index, plotting_type, position, domain = split(command, " ") #draw <intent_index> <plotting_type> <position> <domain>
             intent_index, position = parse(Int64, intent_index), parse(Int64, position)
-			return draw_wrapper[action](intent_index, plotting_type, position)
+
+			if domain == "All"
+				domain = 0
+			else
+				domain = parse(Int64, domain)
+			end
+
+			return draw_wrapper[action](intent_index, plotting_type, position, domain)
 
 		elseif action == "update_domain_list"
 			action, topology = split(command, " ") #update_domain_list <topology>
@@ -47,6 +54,13 @@ function handle_command(command)
 			action, topology, domain, node_number = split(command, " ") #update_node_list <topology> <domain> <node_number>
 			node_number = parse(Int64, node_number)
 			return update_node_list(topology, domain, node_number)
+
+		elseif action == "update_domain_list_drawing"
+			action, intent_index, plotting_type = split(command, " ") #update_domain_list_drawing <intent_index> <plotting_type>
+			intent_index = parse(Int64, intent_index)
+
+			return update_domain_list_drawing(intent_index, plotting_type)
+		
 		end
 	catch e
 		return send_toast("Error: $e")
