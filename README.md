@@ -19,12 +19,13 @@ Described in [MINDFulNotebookExamples.jl](https://github.com/UniStuttgart-IKR/MI
 
 
 ## Screenshots
-![image](https://github.com/UniStuttgart-IKR/MINDFulPluto.jl/assets/16525967/17eb8a4e-b376-42de-814e-809935943072)
-Create, modify and plot intents.
+![image](https://github.com/UniStuttgart-IKR/MINDFulPluto.jl/assets/16525967/f97b6bee-c032-4578-b3f6-fd6baa7e2655)
+Create and plot intents.
 
-![image](https://github.com/UniStuttgart-IKR/MINDFulPluto.jl/assets/16525967/b9f3c98e-c7ca-42fa-8309-1f662f94ce63)
-Get a overview of created intents.
+
+![image](https://github.com/UniStuttgart-IKR/MINDFulPluto.jl/assets/16525967/96e3218c-c8b3-446d-95e9-17b95566130f)
+Get an overview of created intents.
+
 
 ![image](https://github.com/UniStuttgart-IKR/MINDFulPluto.jl/assets/16525967/b18ff304-7d96-4c7c-97b0-6330504b3653)
-
 Play around with Julia code and libraries.
