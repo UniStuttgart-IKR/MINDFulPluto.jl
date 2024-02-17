@@ -6,6 +6,7 @@ function open_file(path)
 end
 
 function insert_scripts()
+	#TODO put all constants (paths etc) in a .env file
 	paths = []
 	urls = ["https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js",
 		"https://cdn.jsdelivr.net/npm/tsparticles-engine@2/tsparticles.engine.min.js",
@@ -23,28 +24,50 @@ function insert_scripts()
 	]
 
 	#get all files in /scripts 
-	files = readdir("data/scripts")
+	files = readdir("MINDFulPluto/src/static/scripts")
 	for file in files
-		push!(paths, "data/scripts/" * file)
+		if file == "Init.js"
+			continue
+		end
+		push!(paths, "MINDFulPluto/src/static/scripts/" * file)
 	end
+
+	#add init.js to paths
+	push!(paths, "MINDFulPluto/src/static/scripts/Init.js")
+
 
 	#insert scripts in paths
 	scripts = []
 	for path in paths
 		push!(scripts, open_file(path))
 	end
-	
+
 
 	return @htl("""
 	<!-- html -->
 	<script>
+
+	//add bootstrap css to head if its not already there
+	const bootstrapLink = "https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	if (!document.querySelector('link[href="' + bootstrapLink + '"]')) {
+		const bootstrap = document.createElement('link')
+		bootstrap.rel = "stylesheet"
+		bootstrap.href = bootstrapLink
+		document.getElementsByTagName('head')[0].appendChild(bootstrap)
+	}
 	
-	const scripts = $(scripts)
+	let scripts = $(scripts)
+	const paths = $(paths)
 	const urls = $(urls)
 	const body = document.getElementsByTagName('body')[0]
 
 	//add url scripts to body 
 	for (let i = 0; i < urls.length; i++) {
+		//check if script is already loaded
+		if (document.querySelector('script[src="' + urls[i] + '"]')) {
+			continue
+		}
+
 		//create script tag 
 		const script = document.createElement('script')
 		//add script url
@@ -53,12 +76,28 @@ function insert_scripts()
 		body.appendChild(script)
 	}
 
+	
+
 	//add scripts to body
+	addScriptLoop:
 	for (let i = 0; i < scripts.length; i++) {
+		//check if script is already loaded
+		let queryScripts = document.querySelectorAll('script');
+		for (let j = 0; j < queryScripts.length; j++) {
+			if (queryScripts[j].className === paths[i]) {
+				continue addScriptLoop
+			}
+		}
+
+		console.log('added script ' + paths[i])
+		
+
 		//create script tag 
-		const script = document.createElement('script')
+		let script = document.createElement('script')
 		//add script content 
 		script.innerHTML = scripts[i]
+		//add path to className
+		script.className = paths[i]
 		//add script to body
 		body.appendChild(script)
 	}
@@ -68,3 +107,10 @@ function insert_scripts()
 	""")
 
 end
+
+function get_dashboard_main_div()
+	content = open_file("MINDFulPluto/src/static/html/DashboardIndex.html")
+	html_div = HTML(content)
+	return html_div
+end
+

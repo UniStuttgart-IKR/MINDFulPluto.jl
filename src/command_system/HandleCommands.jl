@@ -61,6 +61,9 @@ function handle_command(command)
 
 			return update_domain_list_drawing(intent_index, plotting_type)
 		
+		elseif action == "update_ui"
+
+			return send_toast("UI loaded.")
 		end
 	catch e
 		return send_toast("Error: $e")
