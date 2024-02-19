@@ -15,8 +15,18 @@ function plot_intent()
 
 	set_theme!(theme_black())
 
-	dpr = viewport_settings["dpr"]
-	fig = Figure(resolution = (round(713 * dpr, digits = 0), round(625 * dpr, digits = 0)))
+	#dpr = viewport_settings["dpr"]
+	height = viewport_settings["height"] * viewport_settings["dpr"]
+	width = viewport_settings["width"] * viewport_settings["dpr"]
+
+	fig_height = (0.5 * height) - (0.02 * width)
+	fig_width = (0.3 * width) - 20 - (0.02 * width)
+
+	# Problem: When loading the site 1st time, WGLMakie or Pluto reads the dpr and scales the pixels in Figure(res=...) accordingly.
+	# But when the dpr changes (aka resizing the window), pixels are still scaled by the old dpr.
+
+
+	fig = Figure(resolution = (round(fig_width, digits = 0), round(fig_height, digits = 0)))
 	ax = Axis(fig[1, 1])
 
 	if plotting_type == "intentplot"

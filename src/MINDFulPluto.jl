@@ -24,8 +24,6 @@ include("precompile.jl")
 
 
 intent_list = []
-fig = Figure(resolution = (800, 600))
-fig[1:2, 1:2] = GridLayout()
 fig_graphs = Any[nothing for i in 1:4]
 
 viewport_settings = Dict(
